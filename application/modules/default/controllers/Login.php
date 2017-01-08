@@ -17,6 +17,7 @@ class Login extends CI_Controller {
 	
 	public function index()
 	{
+	 
 		$data = array(); 
 		if(isset($this->session->user['id'])){
 			redirect('/default/myaccount/dashboard');

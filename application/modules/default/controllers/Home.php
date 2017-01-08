@@ -11,6 +11,10 @@ class Home extends CI_Controller {
 		$this->load->model('default/search_model');
 	}
 	
+	public function search()
+	{
+			echo "Hello";  die;
+	}
 	
 	public function index()
 	{

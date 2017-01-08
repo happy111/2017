@@ -18,6 +18,17 @@ class Search_model extends CI_Model {
 		//echo $this->db->last_query();
 		return $rows;
 	}
+	function lookup($keyword){
+	
+	
+	
+        $this->db->select('*')->from('ofo_categories');
+        $this->db->like('name',$keyword,'after');
+        $query = $this->db->get();    
+          
+        return $query->result();
+    }
+
    	public function show_category()
 	{
 	    $this->db->select('*');
