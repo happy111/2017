@@ -12,7 +12,10 @@ class Gemstone extends CI_Controller {
 		$this->load->helper('default/Default');	
 	}
 	
-	
+	public function index()
+	{
+	   echo "dfdsf";  die;
+	}
 	public function item($pid)
 	{
 		$pid = (int) $this->uri->segment(3);

@@ -8,7 +8,7 @@ class Admin extends CI_controller {
 		parent::__construct();		
 	}
 	
-	
+
 	public function index()
 	{
 		if(isset($this->session->adminuser['id'])){
@@ -52,16 +52,39 @@ class Admin extends CI_controller {
 			$this->template->publish();
 		}
 	}
-	
-	public function forgetpassword()
+		public function forgetpass()
 	{
-		if(!isset($this->session->adminuser['id'])){		
+		
+		if(!isset($this->session->adminuser['id']))
+		{		
+			
 			$this->template->set_template('layout/layout_login');
 			$this->template->content->view('login/forgetpassword_view', array('title' => 'Hello, world!'));
 			//$this->load->view('welcome_message');
 
 			$this->template->publish();
-		}else{
+		}
+		else
+		{
+			echo "Hello";  die;
+			redirect('/admin/dashboard');
+		}
+	}
+	public function forgetpassword()
+	{
+		echo "Hello";  die;
+		if(!isset($this->session->adminuser['id']))
+		{		
+			echo "Hello";  die;
+			$this->template->set_template('layout/layout_login');
+			$this->template->content->view('login/forgetpassword_view', array('title' => 'Hello, world!'));
+			//$this->load->view('welcome_message');
+
+			$this->template->publish();
+		}
+		else
+		{
+			echo "Hello";  die;
 			redirect('/admin/dashboard');
 		}
 	}

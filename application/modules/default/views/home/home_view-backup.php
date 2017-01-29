@@ -57,14 +57,14 @@
                             foreach ($gems_categories as $cat)
 							{
                             ?>
-                            <li> <a class="getproduct cp" href="#" data-id="<?php echo $cat['id'];?>"><?php echo $cat['name'] ; ?></a> <?php if($cat['name1']<>''){?><span class="subDropdown plus"></span><?php } ?>
+                            <li> <a class="getproduct cp" href="<?php echo base_url();?>category/<?php echo $cat['id'];?>" data-id="<?php echo $cat['id'];?>"><?php echo $cat['name'] ; ?></a> <?php if($cat['name1']<>''){?><span class="subDropdown plus"></span><?php } ?>
                           
 						
                                 <ul class="level0_455">
                                   <?php
                                   	if(isset($cat['name1']))
 							{
-							?>  <li> <a href="#" class="getsubproduct" data-id=""> <?php echo $cat['name1']; ?> </a> </li>  <?php
+							?>  <li> <a href="<?php echo base_url();?>sub-category/<?php echo $cat['name1'];?>"> <?php echo $cat['name1']; ?> </a> </li>  <?php
 							}
 							?>
                                 </ul>
@@ -212,7 +212,6 @@
             
             $(".getproduct").click(function(){
                var cid=$(this).attr("data-id");
-			var html_str='';
                if(cid!=''){
                    $.ajax({
                     type:"POST",
@@ -222,18 +221,14 @@
                     success:function(obj){
                         
                         if(obj.result == 'S'){
-							$.each( obj.data, function( key, value ) {
-								html_str+='<li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6">';
+                        
+                        var html_str='';
+                
+                         html_str+='<ul class="products-grid">';
+                             $.each( obj.data, function( key, value ) {
+                            html_str+='<li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6">';
                                 html_str+='<div class="col-item">';
-                                    html_str+='<div class="images-container">';
-                                              html_str+="<a class=\"product-image\" href=\""+BASEURL+"gemstone/item/"+value.id+"\">";
-                                               html_str+='<a class="product-image" href="'+BASEURL+'gemstone/item/'+value.id+'"></a>';
-                                            if(value.image != '') {
-                                                html_str+='<img alt"'+value.image+'" src="'+BASEURL+'mthumb.php?src=/assets/front/stores/'+value.store_id+'/'+value.id+'/'+value.image+'&w=260&h=208" class="img-responsive">';
-                                            } else {
-                                                html_str+='<img alt="default-gem-imgae" src="'+BASEURL+'mthumb.php?src=/&w=260&h=208" class="img-responsive">';
-                                            }
-                                        html_str+='</a>';
+                                    
                                         html_str+='<div class="actions">';
                                             html_str+='<div class="actions-inner">';
                                                 html_str+='<button type="button" title="Add to Wishlist" class="button btn-cart"> <i class="fa fa-eye" aria-hidden="true"></i> </button>';
@@ -247,13 +242,13 @@
                                     html_str+='<div class="info">';
                                         html_str+='<div class="info-inner">';
                                             html_str+='<div class="item-title">'; 
-                                                html_str+='<a href="'+BASEURL+'gemstone/item/'+value.id+'" title="'+value.title+'">'+value.title+'</a>';
-                                                html_str+='<span class="text1">'+value.cat_name+'</span>';
+                                                html_str+='<a href="'+BASEURL+'gemstone/item/'+value->id+'" title="'+value->title+'">'+value->title+'</a>';
+                                                html_str+='<span class="text1">'+value->cat_name+'</span>';
                                             html_str+='</div>';                       
                                             
                                             html_str+='<div class="item-content">';                       
                                                 html_str+='<div class="price-box" style="margin-right:20px;">';
-                                                    html_str+='<p class="special-price"> <span class="price"> $'+value.gemstone_price+' </span> </p>';
+                                                    html_str+='<p class="special-price"> <span class="price"> $'+value->gemstone_price+' </span> </p>';
                                                     
                                                 html_str+='</div>';
                                             html_str+='</div>';
@@ -264,12 +259,15 @@
                                     html_str+='</div>';
                                 html_str+='</div>';
                             html_str+='</li>';
-							});
-							
-							$(".product").html(html_str);
-						}else{
-						
-                            $(".product").html('<li class="text-center">No Record Found.</li>');
+                        
+                       
+                        });
+                         html_str+='</ul>';
+                       
+                       
+                       
+                        }else{
+                            $("#subcat").html('');
                         }
 
                     }

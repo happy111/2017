@@ -28,33 +28,11 @@ class Search extends CI_Controller {
 	}
 	public function index()
 	{
-	   $keyword = $_GET['term']; 
-        $data['response'] = 'false'; //Set default response
-        $query = $this->search_model->lookup($keyword); //Search DB
-        if( ! empty($query) )
-        {
-            $data['response'] = 'true'; //Set response
-            $data['message'] = array(); //Create array
-            foreach( $query as $row )
-            {
-                $data['message'][] = array( 
-                                        'id'=>$row->id,
-                                        'value' => $row->name,
-                                        ''
-                                     );  //Add a row to array
-            }
-        }
-        if('IS_AJAX')
-        {
-            echo json_encode($data); //echo json string if ajax request
-              
-        }
-        else
-        {
-            $this->load->view('autocomplete/index',$data); //Load html view of search results
-        }
+	    $searchdata = $_GET["keyword"]; 
+		$data = array();
+		$data['searchdata'] = $this->search_model->get_data($searchdata);//fetch all data
+        $this->template->publish();
 	}
 	
-
 
 }
